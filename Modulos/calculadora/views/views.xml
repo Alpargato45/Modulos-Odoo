@@ -1,0 +1,57 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="calculadora.list">
+      <field name="name">calculadora_list</field>
+      <field name="model">calculadora.calculadora</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="value"/>
+          <field name="value2"/>
+          <field name="valueResultado"/>
+        </tree>
+      </field>
+    </record>
+
+     <record model="ir.ui.view" id="calculadora.formulario">
+      <field name="name">calculadora_formulario</field>
+      <field name="model">calculadora.calculadora</field>
+      <field name="arch" type="xml">
+      <form>
+        <group>
+            <field name="value"/>
+            <field name="value2"/>
+            <field name="valueResultado"/>
+        </group>
+      </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="calculadora.action_window">
+      <field name="name">calculadora_window</field>
+      <field name="res_model">calculadora.calculadora</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="calculadora.action_formulario">
+      <field name="name">calculadora_window</field>
+      <field name="res_model">calculadora.calculadora</field>
+      <field name="view_mode">form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="calculadora" id="calculadora.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Mi Listado" id="calculadora.menu_1" parent="calculadora.menu_root"/>
+    
+    <!-- actions -->
+    <menuitem name="List" id="calculadora.menu_1_list" parent="calculadora.menu_1"
+              action="calculadora.action_window"/>
+  </data>
+</odoo>
