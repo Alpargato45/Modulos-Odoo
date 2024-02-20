@@ -1,0 +1,46 @@
+<odoo>
+    <record model="ir.ui.view" id="vista_premio_lista">
+        <field name="name">musica.premio.lista</field>
+        <field name="model">musica.premio</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="categoria"/>
+                <field name="premiado"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vista_premio_formulario">
+        <field name="name">musica.premio.formulario</field>
+        <field name="model">musica.premio</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="nombre"/>
+                    <field name="categoria"/>
+                    <field name="premiado"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_premio_lista">
+        <field name="name">Lista de Premios</field>
+        <field name="res_model">musica.premio</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_premio_formulario">
+        <field name="name">Formulario de Premios</field>
+        <field name="res_model">musica.premio</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem name="Premio" id="musica.menu_root"/>
+    <menuitem name="Premios" id="musica.menu_premios" parent="musica.menu_root"/>
+    <menuitem name="Listar Premios" id="musica.menu_premios_lista" parent="musica.menu_premios"
+              action="accion_premio_lista"/>
+    <menuitem name="Formulario Premios" id="musica.menu_premios_formulario" parent="musica.menu_premios"
+              action="musica.accion_premio_formulario"/>
+</odoo>

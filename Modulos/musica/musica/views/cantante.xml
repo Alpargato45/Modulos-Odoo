@@ -1,0 +1,101 @@
+<odoo>
+    <record model="ir.ui.view" id="vista_cantante_lista">
+        <field name="name">musica.cantante.lista</field>
+        <field name="model">musica.cantante</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre" />
+                <field name="anioDebut" />
+                <field name="aniosActivos" />
+                <field name="numeroOyentes" />
+                <field name="nacionalidad" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vista_cantante_formulario">
+        <field name="name">musica.cantante.formulario</field>
+        <field name="model">musica.cantante</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="nombre" />
+                    <field name="foto" widget="image"/>
+                    <field name="anioDebut" />
+                    <field name="aniosActivos" />
+                    <field name="numeroOyentes" />
+                    <field name="nacionalidad" />
+                </group>
+                <notebook>
+                    <page string="Premios">
+                        <field name="premios" widget="one2many_list">
+                            <tree>
+                                <field name="nombre" />
+                                <field name="categoria" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Canciones">
+                        <field name="canciones" widget="many2many_tags" />
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="musica.cantante_kanban">
+        <field name="name">musica_cantante_kanban</field>
+        <field name="model">musica.cantante</field>
+        <field name="arch" type="xml">
+            <kanban class="o_musica_cantante_kanban">
+                <field name="id" />
+                <field name="nombre" />
+                <field name="foto" />
+                <field name="anioDebut" />
+                <field name="aniosActivos" />
+                <field name="numeroOyentes" />
+                <field name="nacionalidad" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_image_64_contain">
+                                <img alt="Foto del cantante"
+                                    t-att-src="kanban_image('musica.cantante', 'foto', record.id.raw_value)"
+                                    style="width:40px; height:40px" />
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="nombre" />
+                                </strong>
+                                <div t-if="record.nacionalidad.value">
+                                    <t t-esc="record.nacionalidad.value" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_cantante_lista">
+        <field name="name">Lista de Cantantes</field>
+        <field name="res_model">musica.cantante</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_cantante_formulario">
+        <field name="name">Formulario de Cantantes</field>
+        <field name="res_model">musica.cantante</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem name="Cantante" id="musica.menu_root" />
+    <menuitem name="Cantantes" id="musica.menu_cantantes" parent="musica.menu_root" />
+    <menuitem name="Listar Cantantes" id="musica.menu_cantantes_lista"
+        parent="musica.menu_cantantes"
+        action="accion_cantante_lista" />
+    <menuitem name="Formulario Cantantes" id="musica.menu_cantantes_formulario"
+        parent="musica.menu_cantantes"
+        action="musica.accion_cantante_formulario" />
+</odoo>

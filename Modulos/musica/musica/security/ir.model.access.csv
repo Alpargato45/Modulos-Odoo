@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_musica_musica,musica.musica,model_musica_musica,base.group_user,1,1,1,1
+access_musica_cantante,musica.cantante,model_musica_cantante,,1,1,1,1
+access_musica_premio,musica.premio,model_musica_premio,,1,1,1,1
+access_musica_album,musica.album,model_musica_album,,1,1,1,1
+access_musica_cancion,musica.cancion,model_musica_cancion,,1,1,1,1

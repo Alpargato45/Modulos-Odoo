@@ -1,0 +1,117 @@
+<odoo>
+    <record model="ir.ui.view" id="vista_cancion_lista">
+        <field name="name">musica.cancion.lista</field>
+        <field name="model">musica.cancion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="titulo" />
+                <field name="duracion" />
+                <field name="fechaSalida" />
+                <field name="escuchas" />
+                <field name="album" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vista_cancion_formulario">
+        <field name="name">musica.cancion.formulario</field>
+        <field name="model">musica.cancion</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="titulo" />
+                    <field name="portada" widget="image" />
+                    <field name="duracion" />
+                    <field name="fechaSalida" />
+                    <field name="escuchas" />
+                    <field name="album" />
+                </group>
+                <group>
+                    <label for="cantantes" string="Cantantes" />
+                    <field name="cantantes" widget="many2many_tags" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vista_album_formulario">
+        <field name="name">musica.album.formulario</field>
+        <field name="model">musica.album</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="titulo" />
+                    <field name="portada" />
+                    <field name="fechaSalida" />
+                    <field name="escuchasTotales" />
+                </group>
+                <notebook>
+                    <page string="Canciones">
+                        <field name="trackList" widget="one2many_list">
+                            <tree>
+                                <field name="titulo" />
+                                <field name="duracion" />
+                                <field name="escuchas" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="musica.cancion_kanban">
+        <field name="name">musica_cancion_kanban</field>
+        <field name="model">musica.cancion</field>
+        <field name="arch" type="xml">
+            <kanban class="o_musica_cancion_kanban">
+                <field name="id" />
+                <field name="titulo" />
+                <field name="portada" />
+                <field name="duracion" />
+                <field name="fechaSalida" />
+                <field name="escuchas" />
+                <field name="album" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_image_64_contain">
+                                <img alt="Foto de la canción"
+                                    t-att-src="kanban_image('musica.cancion', 'portada', record.id.raw_value)"
+                                    style="width:40px; height:40px" />
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="titulo" />
+                                </strong>
+                                <div t-if="record.fechaSalida.value">
+                                    <t t-esc="record.fechaSalida.value" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_cancion_lista">
+        <field name="name">Lista de Canciones</field>
+        <field name="res_model">musica.cancion</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accion_cancion_formulario">
+        <field name="name">Formulario de Canciones</field>
+        <field name="res_model">musica.cancion</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem name="Cancion" id="musica.menu_root" />
+    <menuitem name="Canciones" id="musica.menu_canciones" parent="musica.menu_root" />
+    <menuitem name="Listar Canciones" id="menu_canciones_lista" parent="musica.menu_canciones"
+        action="accion_cancion_lista" />
+    <menuitem name="Formulario Canciones" id="musica.menu_canciones_formulario"
+        parent="musica.menu_canciones"
+        action="musica.accion_cancion_formulario" />
+</odoo>
