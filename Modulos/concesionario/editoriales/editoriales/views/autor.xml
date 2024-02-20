@@ -1,0 +1,120 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="editoriales.autor_lista">
+      <field name="name">editoriales_autor_lista</field>
+      <field name="model">editoriales.autor</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id_autor" />
+          <field name="nombre_apellidos" />
+          <field name="creditos" />
+          <field name="editoriales" />
+          <field name="comics" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="editoriales.autor_formulario">
+      <field name="name">editoriales_autor_formulario</field>
+      <field name="model">editoriales.autor</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <notebook>
+              <page string="Información del autor">
+                <group>
+                  <field name="id_autor" />
+                  <field name="nombre_apellidos" />
+                  <field name="imagen" widget="image" />
+                  <field name="creditos" />
+                  <field name="editoriales" />
+                  <field name="comics" />
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="editoriales.autor_kanban">
+      <field name="name">editoriales_autor_kanban</field>
+      <field name="model">editoriales.autor</field>
+      <field name="arch" type="xml">
+        <kanban class="o_editoriales_autor_kanban">
+          <field name="id_autor" />
+          <field name="id" />
+          <field name="nombre_apellidos" />
+          <field name="imagen" />
+          <field name="creditos" />
+          <field name="editoriales" />
+          <field name="comics" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_image_64_contain">
+                  <img alt="Imagen del autor"
+                    t-att-src="kanban_image('editoriales.autor', 'imagen', record.id.raw_value)"
+                    style="width:40px; height:40px" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong class="o_kanban_record_title">
+                    <field name="nombre_apellidos" />
+                  </strong>
+                  <div t-if="record.creditos.value">
+                    <t t-esc="record.creditos.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="editoriales.autor_ventana">
+      <field name="name">Ventana autores</field>
+      <field name="res_model">editoriales.autor</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="editoriales.action_server">
+      <field name="name">editoriales server</field>
+      <field name="model_id" ref="model_editoriales_editoriales"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Editoriales" id="editoriales.menu_root" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu" id="editoriales.menu_1"
+      parent="editoriales.menu_root" />
+    <!--    <menuitem name="Menu 2" id="editoriales.menu_2" parent="editoriales.menu_root"/>
+-->
+    <!-- actions -->
+
+    <menuitem name="Autores" id="editoriales.menu_1_autores"
+      parent="editoriales.menu_1" action="editoriales.autor_ventana" />
+    <!--    <menuitem name="Server to list" id="editoriales" parent="editoriales.menu_2"
+              action="editoriales.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_editoriales_editoriales,editoriales.editoriales,model_editoriales_editoriales,base.group_user,1,1,1,1
+access_concesionario_coche,concesionario.coche,model_concesionario_coche,,1,1,1,1
+access_concesionario_marca,concesionario.marca,model_concesionario_marca,,1,1,1,1
+access_concesionario_concesionario,concesionario.concesionario,model_concesionario_concesionario,,1,1,1,1
+access_concesionario_trabajador,concesionario.trabajador,model_concesionario_trabajador,,1,1,1,1

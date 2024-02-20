@@ -1,0 +1,86 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="examen_jorge.list">
+      <field name="name">examenJorge_list</field>
+      <field name="model">examen_jorge.examen_jorge</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="apellido"/>
+          <field name="nombreCompleto"/>
+          <field name="direccion"/>
+          <field name="ciudad"/>
+          <field name="edad"/>
+          <field name="menorOMayor"/>
+          <field name="sexo"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="examen_jorge.formulario">
+      <field name="name">examenJorge_formulario</field>
+      <field name="model">examen_jorge.examen_jorge</field>
+      <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="name"/>
+          <field name="apellido"/>
+          <field name="nombreCompleto"/>
+          <field name="direccion"/>
+          <field name="ciudad"/>
+          <field name="edad"/>
+          <field name="menorOMayor"/>
+          <field name="sexo"/>
+        </group>
+      </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="examen_jorge.action_window">
+      <field name="name">examenJorge_window</field>
+      <field name="res_model">examen_jorge.examen_jorge</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="examen_jorge.action_window">
+      <field name="name">examenJorge_window</field>
+      <field name="res_model">examen_jorge.examen_jorge</field>
+      <field name="view_mode">form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="examen_jorge.action_server">
+      <field name="name">examenJorge server</field>
+      <field name="model_id" ref="model_examen_jorge_examen_jorge"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="examenJorge" id="examen_jorge.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="examen_jorge.menu_1" parent="examen_jorge.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="examen_jorge.menu_1_list" parent="examen_jorge.menu_1"
+              action="examen_jorge.action_window"/>
+
+  </data>
+</odoo>

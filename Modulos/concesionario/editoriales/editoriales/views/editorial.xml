@@ -1,0 +1,123 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="editoriales.editorial_lista">
+      <field name="name">editoriales_editorial_lista</field>
+      <field name="model">editoriales.editorial</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id_editorial" />
+          <field name="nombre" />
+          <field name="sede" />
+          <field name="colecciones" />
+          <field name="autores" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="editoriales.editorial_formulario">
+      <field name="name">editoriales_editorial_formulario</field>
+      <field name="model">editoriales.editorial</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <notebook>
+              <page string="Información de la editorial">
+                <group>
+                  <field name="id_editorial" />
+                  <field name="logo" widget="image"/>
+                  <field name="nombre" />
+                  <field name="sede" />
+                  <field name="colecciones" />
+                  <field name="autores" />
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="editoriales.editorial_kanban">
+      <field name="name">editoriales_editorial_kanban</field>
+      <field name="model">editoriales.editorial</field>
+      <field name="arch" type="xml">
+        <kanban class="o_editoriales_editorial_kanban">
+          <field name="id_editorial" />
+          <field name="id" />
+          <field name="logo" />
+          <field name="nombre" />
+          <field name="sede" />
+          <field name="colecciones" />
+          <field name="autores" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_image_64_contain">
+                  <img alt="Logotipo"
+                    t-if="record.logo"
+                    t-att-src="kanban_image('editoriales.editorial', 'logo', record.id.raw_value)"
+                    style="width:60px; height:60px" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong class="o_kanban_record_title">
+                    <field name="nombre" />
+                  </strong>
+                  <div t-if="record.sede.value">
+                    <t t-esc="record.sede.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="editoriales.editorial_ventana">
+      <field name="name">Ventana editoriales</field>
+      <field name="res_model">editoriales.editorial</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="editoriales.action_server">
+      <field name="name">editoriales server</field>
+      <field name="model_id" ref="model_editoriales_editoriales"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Editoriales" id="editoriales.menu_root" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu" id="editoriales.menu_1"
+      parent="editoriales.menu_root" />
+    <!-- 
+      <menuitem name="Menu 2" id="editoriales.menu_2" parent="editoriales.menu_root"/>
+    -->
+    <!-- actions -->
+
+    <menuitem name="Editoriales" id="editoriales.menu_1_editoriales"
+      parent="editoriales.menu_1" action="editoriales.editorial_ventana" />
+    <!-- <menuitem name="Server to list" id="editoriales" parent="editoriales.menu_2"
+              action="editoriales.action_server"/>
+-->
+
+  </data>
+</odoo>
